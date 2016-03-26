@@ -81,7 +81,7 @@ task :deploy do
   system 'git remote add deploy git@github.com:ricardok/polyportorg.git'
 
   puts '=> Force push to deploy. Get some coffee, it may take some time...'.magenta
-  system 'git push -f gh-pages deploy:gh-pages'
+  system 'git push -f deploy gh-pages'
 
   puts "=> Checkout #{current_branch} branch...".magenta
   system "git checkout #{current_branch}"
