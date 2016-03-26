@@ -48,3 +48,43 @@ task :staging do
 
   puts '=> Done. It can take up to 10 minutes for your changes to appear staging.polyport.org'.yellow
 end
+
+desc 'Push to polyport.org'
+task :deploy do
+  require 'colored'
+
+  answer = ask "Are your sure?"
+  exit if answer == 'n'
+
+  puts '=> Memorizing current branch name...'.magenta
+  current_branch = `git branch | grep "*"`.gsub('*', '').strip
+
+  puts '=> Create orphan gh-pages branch...'.magenta
+  system 'git checkout --orphan gh-pages'
+
+  puts '=> Building javascript files...'.magenta
+  system 'npm run build'
+
+  puts '=> Disallow robots...'.magenta
+  File.open('robots.txt', 'w') { |file| file.write "User-agent: *\nDisallow: /" }
+
+  puts '=> Change CNAME...'.magenta
+  File.open('CNAME', 'w') { |file| file.write 'polyport.org' }
+
+  puts '=> Add everything...'.magenta
+  system 'git add --all'
+
+  puts '=> Commit everything...'.magenta
+  system 'git commit -m "Deploy commit"'
+
+  puts '=> Add staging remote...'.magenta
+  system 'git remote add staging git@github.com:ricardok/polyportorg.git'
+
+  puts '=> Force push to deploy. Get some coffee, it may take some time...'.magenta
+  system 'git push -f gh-pages gh-pages:gh-pages'
+
+  puts "=> Checkout #{current_branch} branch...".magenta
+  system "git checkout #{current_branch}"
+
+  puts '=> Done. It can take up to 10 minutes for your changes to appear polyport.org'.yellow
+end
