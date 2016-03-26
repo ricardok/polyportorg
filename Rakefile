@@ -59,8 +59,11 @@ task :deploy do
   puts '=> Memorizing current branch name...'.magenta
   current_branch = `git branch | grep "*"`.gsub('*', '').strip
 
+  puts '=> Remove gh-pages branch...'.magenta
+  system 'git branch -D gh-pages'
+
   puts '=> Create orphan gh-pages branch...'.magenta
-  system 'git checkout gh-pages'
+  system 'git checkout --orphan gh-pages'
 
   puts '=> Building javascript files...'.magenta
   system 'npm run build'
