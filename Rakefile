@@ -77,11 +77,11 @@ task :deploy do
   puts '=> Commit everything...'.magenta
   system 'git commit -m "Deploy commit"'
 
-  puts '=> Add staging remote...'.magenta
-  system 'git remote add staging git@github.com:ricardok/polyportorg.git'
+  puts '=> Add deploy remote...'.magenta
+  system 'git remote add deploy git@github.com:ricardok/polyportorg.git'
 
   puts '=> Force push to deploy. Get some coffee, it may take some time...'.magenta
-  system 'git push -f gh-pages gh-pages:gh-pages'
+  system 'git push -f gh-pages deploy:gh-pages'
 
   puts "=> Checkout #{current_branch} branch...".magenta
   system "git checkout #{current_branch}"
