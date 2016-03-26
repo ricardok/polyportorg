@@ -60,7 +60,7 @@ task :deploy do
   current_branch = `git branch | grep "*"`.gsub('*', '').strip
 
   puts '=> Create orphan gh-pages branch...'.magenta
-  system 'git checkout --orphan gh-pages'
+  system 'git checkout gh-pages'
 
   puts '=> Building javascript files...'.magenta
   system 'npm run build'
