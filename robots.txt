@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://polyport/sitemap.xml
+Sitemap: http://polyport.org/sitemap.xml
