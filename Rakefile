@@ -69,7 +69,7 @@ task :deploy do
   system 'npm run build'
 
   puts '=> Disallow robots...'.magenta
-  File.open('robots.txt', 'w') { |file| file.write "User-agent: *\n" }
+  #File.open('robots.txt', 'w') { |file| file.write "User-agent: *\n" }
 
   puts '=> Change CNAME...'.magenta
   File.open('CNAME', 'w') { |file| file.write 'polyport.org' }
